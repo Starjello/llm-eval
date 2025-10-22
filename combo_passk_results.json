@@ -4,8 +4,240 @@
   "base_save_dir": "C:\\Users\\Alexander_Bennett\\OneDrive - UMass Lowell\\Desktop\\llm-eval\\generated_solutions",
   "runs": [
     {
-      "provider": "openai",
+      "provider": "gemini",
       "results": [
+        {
+          "name": "HumanEval/0",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    n = len(numbers)\n    for i in range(n):\n        for j in range(i + 1, n):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.1982431411743164
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/1",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n    result = []\n    current_group = []\n    balance = 0\n\n    for char in paren_string:\n        if char == ' ':\n            continue\n        \n        current_group.append(char)\n        \n        if char == '(':\n            balance += 1\n        elif char == ')':\n            balance -= 1\n        \n        if balance == 0 and current_group:\n            result.append(\"\".join(current_group))\n            current_group = []\n            \n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19665074348449707
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/10",
+          "passed": true,
+          "attempts_used": 2,
+          "final_variant": 1,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def is_palindrome(string: str) -> bool:\n    \"\"\" Test if given string is a palindrome \"\"\"\n    return string == string[::-1]\n\n\ndef make_palindrome(string: str) -> str:\n    \"\"\" Find the shortest palindrome that begins with a supplied string.\n    Algorithm idea is simple:\n    - Find the longest postfix of supplied string that is a palindrome.\n    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n    >>> make_palindrome('')\n    ''\n    >>> make_palindrome('cat')\n    'catac'\n    >>> make_palindrome('cata')\n    'catac'\n    \"\"\"\n    if not string:\n        return \"\"\n\n    n = len(string)\n    for i in range(n, -1, -1):\n        suffix = string[i:]\n        if is_palindrome(suffix):\n            prefix_to_reverse = string[:i]\n            return string + prefix_to_reverse[::-1]\n    return string # Should not be reached if string is not empty, as \"\" is a palindrome suffix",
+              "exit_code": 1,
+              "stdout_tail": "",
+              "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\ALEXAN~1\\AppData\\Local\\Temp\\passk_combo_2vbhdkkf\\run_tests.py\", line 16, in <module>\n    globals_ns[\"check\"](candidate)\n  File \"<string>\", line 9, in check\nAssertionError",
+              "elapsed": 0.16559672355651855
+            },
+            {
+              "label": "fix01",
+              "code": "def is_palindrome(text):\n    return text == text[::-1]\n\ndef make_palindrome(string):\n    \"\"\"\n    Find the longest palindromic suffix of a string and append the reverse of the prefix\n    before that suffix to the end of the string to make the whole string a palindrome.\n    For example:\n    make_palindrome('cat') == 'catac'\n    make_palindrome('cata') == 'catac'\n    \"\"\"\n    if not string:\n        return \"\"\n    n = len(string)\n    for i in range(n + 1):  # Iterate from 0 to n (inclusive)\n        suffix = string[i:]\n        if is_palindrome(suffix):\n            prefix_to_reverse = string[:i]\n            return string + prefix_to_reverse[::-1]\n    return string",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19543838500976562
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/100",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def make_a_pile(n):\n    \"\"\"\n    Given a positive integer n, you have to make a pile of n levels of stones.\n    The first level has n stones.\n    The number of stones in the next level is:\n        - the next odd number if n is odd.\n        - the next even number if n is even.\n    Return the number of stones in each level in a list, where element at index\n    i represents the number of stones in the level (i+1).\n\n    Examples:\n    >>> make_a_pile(3)\n    [3, 5, 7]\n    \"\"\"\n    pile = []\n    current_stones = n\n    for _ in range(n):\n        pile.append(current_stones)\n        if n % 2 == 0:  # n is even\n            current_stones += 2\n        else:  # n is odd\n            current_stones += 2\n    return pile",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.16744542121887207
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/101",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def words_string(s):\n    \"\"\"\n    You will be given a string of words separated by commas or spaces. Your task is\n    to split the string into words and return an array of the words.\n    \n    For example:\n    words_string(\"Hi, my name is John\") == [\"Hi\", \"my\", \"name\", \"is\", \"John\"]\n    words_string(\"One, two, three, four, five, six\") == [\"One\", \"two\", \"three\", \"four\", \"five\", \"six\"]\n    \"\"\"\n    s = s.replace(\",\", \" \")\n    words = s.split()\n    return words",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19031596183776855
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/102",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def choose_num(x, y):\n    \"\"\"This function takes two positive numbers x and y and returns the\n    biggest even integer number that is in the range [x, y] inclusive. If \n    there's no such number, then the function should return -1.\n\n    For example:\n    choose_num(12, 15) = 14\n    choose_num(13, 12) = -1\n    \"\"\"\n    if x > y:\n        return -1\n\n    if y % 2 == 0:\n        return y\n    elif (y - 1) >= x and (y - 1) % 2 == 0:\n        return y - 1\n    else:\n        return -1",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.1997203826904297
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/103",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def rounded_avg(n, m):\n    \"\"\"You are given two positive integers n and m, and your task is to compute the\n    average of the integers from n through m (including n and m). \n    Round the answer to the nearest integer and convert that to binary.\n    If n is greater than m, return -1.\n    Example:\n    rounded_avg(1, 5) => \"0b11\"\n    rounded_avg(7, 5) => -1\n    rounded_avg(10, 20) => \"0b1111\"\n    rounded_avg(20, 33) => \"0b11010\"\n    \"\"\"\n    if n > m:\n        return -1\n    \n    # Calculate the sum of integers from n to m\n    # The sum of an arithmetic series is (number of terms / 2) * (first term + last term)\n    # Number of terms = m - n + 1\n    sum_val = (m - n + 1) * (n + m) / 2\n    \n    # Calculate the average\n    average = sum_val / (m - n + 1)\n    \n    # Round the average to the nearest integer\n    rounded_average = round(average)\n    \n    # Convert the rounded average to binary\n    return bin(rounded_average)",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19640493392944336
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/104",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def unique_digits(x):\n    \"\"\"Given a list of positive integers x. return a sorted list of all \n    elements that hasn't any even digit.\n\n    Note: Returned list should be sorted in increasing order.\n    \n    For example:\n    >>> unique_digits([15, 33, 1422, 1])\n    [1, 15, 33]\n    >>> unique_digits([152, 323, 1422, 10])\n    []\n    \"\"\"\n    result = []\n    for num in x:\n        s_num = str(num)\n        has_even = False\n        for digit_char in s_num:\n            digit = int(digit_char)\n            if digit % 2 == 0:\n                has_even = True\n                break\n        if not has_even:\n            result.append(num)\n    \n    result.sort()\n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.18092846870422363
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/105",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def by_length(arr):\n    \"\"\"\n    Given an array of integers, sort the integers that are between 1 and 9 inclusive,\n    reverse the resulting array, and then replace each digit by its corresponding name from\n    \"One\", \"Two\", \"Three\", \"Four\", \"Five\", \"Six\", \"Seven\", \"Eight\", \"Nine\".\n\n    For example:\n      arr = [2, 1, 1, 4, 5, 8, 2, 3]   \n            -> sort arr -> [1, 1, 2, 2, 3, 4, 5, 8] \n            -> reverse arr -> [8, 5, 4, 3, 2, 2, 1, 1]\n      return [\"Eight\", \"Five\", \"Four\", \"Three\", \"Two\", \"Two\", \"One\", \"One\"]\n    \n      If the array is empty, return an empty array:\n      arr = []\n      return []\n    \n      If the array has any strange number ignore it:\n      arr = [1, -1 , 55] \n            -> sort arr -> [-1, 1, 55]\n            -> reverse arr -> [55, 1, -1]\n      return = ['One']\n    \"\"\"\n    if not arr:\n        return []\n\n    num_to_word = {\n        1: \"One\", 2: \"Two\", 3: \"Three\", 4: \"Four\", 5: \"Five\",\n        6: \"Six\", 7: \"Seven\", 8: \"Eight\", 9: \"Nine\"\n    }\n\n    # Filter numbers between 1 and 9 inclusive\n    filtered_arr = [num for num in arr if 1 <= num <= 9]\n\n    # Sort the filtered array\n    filtered_arr.sort()\n\n    # Reverse the sorted array\n    filtered_arr.reverse()\n\n    # Replace each digit by its corresponding name\n    result = [num_to_word[num] for num in filtered_arr]\n\n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.21308183670043945
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/106",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def f(n):\n    result = []\n    for i in range(1, n + 1):\n        if i % 2 == 0:\n            # Calculate factorial\n            factorial = 1\n            for j in range(1, i + 1):\n                factorial *= j\n            result.append(factorial)\n        else:\n            # Calculate sum from 1 to i\n            sum_to_i = i * (i + 1) // 2\n            result.append(sum_to_i)\n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.18462705612182617
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/107",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def even_odd_palindrome(n):\n    even_palindromes = 0\n    odd_palindromes = 0\n\n    for i in range(1, n + 1):\n        s = str(i)\n        if s == s[::-1]:  # Check if it's a palindrome\n            if i % 2 == 0:\n                even_palindromes += 1\n            else:\n                odd_palindromes += 1\n\n    return (even_palindromes, odd_palindromes)",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.20204615592956543
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/108",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def count_nums(arr):\n    \"\"\"\n    Write a function count_nums which takes an array of integers and returns\n    the number of elements which has a sum of digits > 0.\n    If a number is negative, then its first signed digit will be negative:\n    e.g. -123 has signed digits -1, 2, and 3.\n    >>> count_nums([]) == 0\n    >>> count_nums([-1, 11, -11]) == 1\n    >>> count_nums([1, 1, 2]) == 3\n    >>> count_nums([-10, -11, -12]) == 0\n    >>> count_nums([10, 20, 30]) == 3\n    >>> count_nums([-1, -2, -3, -4, -5, -6, -7, -8, -9]) == 0\n    >>> count_nums([1, 2, 3, 4, 5, 6, 7, 8, 9]) == 9\n    >>> count_nums([-100, -200, -300]) == 0\n    >>> count_nums([100, 200, 300]) == 3\n    >>> count_nums([-123, 456, -789]) == 1\n    >>> count_nums([0]) == 1\n    >>> count_nums([-5]) == 0\n    >>> count_nums([5]) == 1\n    >>> count_nums([-12]) == 0\n    >>> count_nums([12]) == 1\n    >>> count_nums([-10]) == 0\n    >>> count_nums([10]) == 1\n    >>> count_nums([-99]) == 0\n    >>> count_nums([99]) == 1\n    >>> count_nums([-1000]) == 0\n    >>> count_nums([1000]) == 1\n    \"\"\"\n    count = 0\n    for num in arr:\n        s = str(num)\n        digit_sum = 0\n        if s[0] == '-':\n            digit_sum += -int(s[1])\n            for digit_char in s[2:]:\n                digit_sum += int(digit_char)\n        else:\n            for digit_char in s:\n                digit_sum += int(digit_char)\n        \n        if digit_sum > 0:\n            count += 1\n    return count",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.20550870895385742
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/109",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def move_one_ball(arr):\n    if not arr:\n        return True\n\n    n = len(arr)\n    sorted_arr = sorted(arr)\n\n    for i in range(n):\n        # Perform a right shift 'i' times\n        # This is equivalent to checking if the original array is a rotation of the sorted array\n        is_match = True\n        for j in range(n):\n            if arr[j] != sorted_arr[(j + i) % n]:\n                is_match = False\n                break\n        if is_match:\n            return True\n\n    return False",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.1965780258178711
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/11",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "from typing import List\n\n\ndef string_xor(a: str, b: str) -> str:\n    \"\"\" Input are two strings a and b consisting only of 1s and 0s.\n    Perform binary XOR on these inputs and return result also as a string.\n    >>> string_xor('010', '110')\n    '100'\n    \"\"\"\n    result = []\n    for i in range(len(a)):\n        if a[i] == b[i]:\n            result.append('0')\n        else:\n            result.append('1')\n    return \"\".join(result)",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.18422698974609375
+            }
+          ]
+        },
         {
           "name": "HumanEval/110",
           "passed": true,
@@ -14,22 +246,422 @@
           "variants": [
             {
               "label": "base",
-              "code": "def exchange(lst1, lst2):\n    odd = sum(1 for i in lst1 if i % 2 == 1)\n    even = sum(1 for i in lst2 if i % 2 == 0)\n    if even >= odd:\n        return \"YES\"\n    return \"NO\"",
+              "code": "def exchange(lst1, lst2):\n    \"\"\"In this problem, you will implement a function that takes two lists of numbers,\n    and determines whether it is possible to perform an exchange of elements\n    between them to make lst1 a list of only even numbers.\n    There is no limit on the number of exchanged elements between lst1 and lst2.\n    If it is possible to exchange elements between the lst1 and lst2 to make\n    all the elements of lst1 to be even, return \"YES\".\n    Otherwise, return \"NO\".\n    For example:\n    exchange([1, 2, 3, 4], [1, 2, 3, 4]) => \"YES\"\n    exchange([1, 2, 3, 4], [1, 5, 3, 4]) => \"NO\"\n    It is assumed that the input lists will be non-empty.\n    \"\"\"\n    odd_count_lst1 = 0\n    for x in lst1:\n        if x % 2 != 0:\n            odd_count_lst1 += 1\n\n    if odd_count_lst1 == 0:\n        return \"YES\"\n\n    even_count_lst2 = 0\n    for x in lst2:\n        if x % 2 == 0:\n            even_count_lst2 += 1\n\n    if even_count_lst2 >= odd_count_lst1:\n        return \"YES\"\n    else:\n        return \"NO\"",
               "exit_code": 0,
               "stdout_tail": "PASS: Tests finished without assertion errors.",
               "stderr_tail": "",
-              "elapsed": 0.19125080108642578
+              "elapsed": 0.1679847240447998
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/111",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def histogram(test):\n    \"\"\"Given a string representing a space separated lowercase letters, return a dictionary\n    of the letter with the most repetition and containing the corresponding count.\n    If several letters have the same occurrence, return all of them.\n    \n    Example:\n    histogram('a b c') == {'a': 1, 'b': 1, 'c': 1}\n    histogram('a b b a') == {'a': 2, 'b': 2}\n    histogram('a b c a b') == {'a': 2, 'b': 2}\n    histogram('b b b b a') == {'b': 4}\n    histogram('') == {}\n\n    \"\"\"\n    if not test:\n        return {}\n\n    counts = {}\n    letters = test.split()\n\n    for letter in letters:\n        counts[letter] = counts.get(letter, 0) + 1\n\n    if not counts: # Should not happen if test is not empty, but good for robustness\n        return {}\n\n    max_count = 0\n    for count in counts.values():\n        if count > max_count:\n            max_count = count\n    \n    result = {}\n    for letter, count in counts.items():\n        if count == max_count:\n            result[letter] = count\n            \n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19998526573181152
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/112",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def reverse_delete(s, c):\n    \"\"\"Task\n    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c\n    then check if the result string is palindrome.\n    A string is called palindrome if it reads the same backward as forward.\n    You should return a tuple containing the result string and True/False for the check.\n    Example\n    For s = \"abcde\", c = \"ae\", the result should be ('bcd',False)\n    For s = \"abcdef\", c = \"b\"  the result should be ('acdef',False)\n    For s = \"abcdedcba\", c = \"ab\", the result should be ('cdedc',True)\n    \"\"\"\n    c_set = set(c)\n    result_s_list = []\n    for char_s in s:\n        if char_s not in c_set:\n            result_s_list.append(char_s)\n    \n    result_s = \"\".join(result_s_list)\n    \n    is_palindrome = (result_s == result_s[::-1])\n    \n    return (result_s, is_palindrome)",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.17747187614440918
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/113",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def odd_count(lst):\n    \"\"\"Given a list of strings, where each string consists of only digits, return a list.\n    Each element i of the output should be \"the number of odd elements in the\n    string i of the input.\" where all the i's should be replaced by the number\n    of odd digits in the i'th string of the input.\n\n    >>> odd_count(['1234567'])\n    [\"the number of odd elements 4n the str4ng 4 of the 4nput.\"]\n    >>> odd_count(['3',\"11111111\"])\n    [\"the number of odd elements 1n the str1ng 1 of the 1nput.\",\n     \"the number of odd elements 8n the str8ng 8 of the 8nput.\"]\n    \"\"\"\n    result = []\n    for s in lst:\n        count = 0\n        for char_digit in s:\n            if int(char_digit) % 2 != 0:\n                count += 1\n        result.append(f\"the number of odd elements {count}n the str{count}ng {count} of the {count}nput.\")\n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.23838424682617188
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/114",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def minSubArraySum(nums):\n    \"\"\"\n    Given an array of integers nums, find the minimum sum of any non-empty sub-array\n    of nums.\n    Example\n    minSubArraySum([2, 3, 4, 1, 2, 4]) == 1\n    minSubArraySum([-1, -2, -3]) == -6\n    \"\"\"\n    min_so_far = float('inf')\n    current_min = 0\n\n    for x in nums:\n        current_min += x\n        if current_min < min_so_far:\n            min_so_far = current_min\n        if current_min > 0:  # If current_min becomes positive, it's better to start a new subarray\n            current_min = 0\n            \n    # Edge case: if all numbers are positive, current_min will reset to 0\n    # and min_so_far will be the smallest single positive number.\n    # This is handled by initializing min_so_far to float('inf') and\n    # current_min to 0. If all numbers are positive, current_min will\n    # never go below 0 after the first element, and min_so_far will\n    # correctly capture the smallest single element (which is the min subarray sum).\n    # However, the standard Kadane's for minimum sum needs a slight adjustment\n    # if all numbers are positive.\n    # Let's re-evaluate Kadane's for minimum sum.\n\n    # Correct Kadane's for minimum sum:\n    # Initialize min_ending_here to a large positive number (or the first element)\n    # Initialize min_so_far to a large positive number (or the first element)\n\n    min_ending_here = nums[0]\n    min_so_far = nums[0]\n\n    for i in range(1, len(nums)):\n        min_ending_here = min(nums[i], min_ending_here + nums[i])\n        min_so_far = min(min_so_far, min_ending_here)\n\n    return min_so_far",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.20270895957946777
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/115",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "import math\n\ndef max_fill(grid, capacity):\n    \"\"\"\n    You are given a rectangular grid of wells. Each row represents a single well,\n    and each 1 in a row represents a single unit of water.\n    Each well has a corresponding bucket that can be used to extract water from it, \n    and all buckets have the same capacity.\n    Your task is to use the buckets to empty the wells.\n    Output the number of times you need to lower the buckets.\n    \"\"\"\n    total_lowers = 0\n    for well in grid:\n        water_in_well = sum(well)\n        lowers_for_well = math.ceil(water_in_well / capacity)\n        total_lowers += lowers_for_well\n    return total_lowers",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.18202781677246094
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/116",
+          "passed": false,
+          "attempts_used": 2,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def sort_array(arr):\n    \"\"\"\n    In this Kata, you have to sort an array of non-negative integers according to\n    number of ones in their binary representation in ascending order.\n    For similar number of ones, sort based on decimal value.\n\n    It must be implemented like this:\n    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]\n    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]\n    >>> sort_array([1, 0, 2, 3, 4]) == [0, 1, 2, 3, 4]\n    \"\"\"\n    if not arr:\n        return []\n\n    # The problem description and examples are contradictory for negative numbers.\n    # The description says \"non-negative integers\", but the example shows negative numbers sorted numerically.\n    # Given the example `sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]`,\n    # it implies that if all numbers are negative, they should be sorted numerically.\n    # If there's a mix or only non-negative, the bit count logic applies.\n    # However, the core problem is about \"number of ones in their binary representation\",\n    # which is typically defined for non-negative integers.\n    #\n    # Let's assume the \"non-negative integers\" in the description is the primary rule\n    # for the bit-counting sort, and the negative example is a special case\n    # where the bit-counting rule doesn't apply (or is undefined/trivial for negative numbers\n    # in a way that defaults to numerical sort).\n    #\n    # If all numbers are negative, we just sort them numerically.\n    if all(x < 0 for x in arr):\n        return sorted(arr)\n\n    # Otherwise, apply the bit-counting sort.\n    # For non-negative numbers, count bits.\n    # For negative numbers, if they are mixed with non-negative,\n    # the problem doesn't specify. The most reasonable interpretation\n    # for \"non-negative integers\" is that the bit-counting logic\n    # only applies to non-negative numbers. If negative numbers are present\n    # and mixed, their position relative to non-negative numbers is ambiguous\n    # based on the description.\n    #\n    # Given the examples, it seems the intent is:\n    # 1. If all elements are negative, sort numerically.\n    # 2. Otherwise (mixed or all non-negative), apply the bit-count sort.\n    #    For non-negative numbers, `bin(x).count('1')` works.\n    #    For negative numbers, `bin(x).count('1')` would count ones in their\n    #    two's complement representation, which is not usually what's meant\n    #    by \"number of ones\" in this context unless specified.\n    #    The simplest interpretation that aligns with \"non-negative integers\"\n    #    is to only apply the bit-count logic to non-negative numbers.\n    #\n    # Let's stick to the \"non-negative integers\" part of the description\n    # for the bit-counting logic.\n    #\n    # The example `sort_array([1, 0, 2, 3, 4]) == [0, 1, 2, 3, 4]`\n    # shows 0 is handled. `bin(0)` is '0b0', `count('1')` is 0.\n    # `bin(1)` is '0b1', `count('1')` is 1.\n    # `bin(2)` is '0b10', `count('1')` is 1.\n    # `bin(3)` is '0b11', `count('1')` is 2.\n    # `bin(4)` is '0b100', `count('1')` is 1.\n    #\n    # Sorting by (bit_count, decimal_value):\n    # 0: (0, 0)\n    # 1: (1, 1)\n    # 2: (1, 2)\n    # 4: (1, 4)\n    # 3: (2, 3)\n    #\n    # Result: [0, 1, 2, 4, 3]\n    #\n    # This contradicts `sort_array([1, 0, 2, 3, 4]) == [0, 1, 2, 3, 4]`.\n    #\n    # This implies that the problem statement \"sort an array of non-negative integers according to number of ones\"\n    # and the example `[1, 0, 2, 3, 4] == [0, 1, 2, 3, 4]` are contradictory.\n    #\n    # Let's re-evaluate the example `[1, 5, 2, 3, 4] == [1, 2, 3, 4, 5]`.\n    # 1: (1, 1)\n    # 2: (1, 2)\n    # 3: (2, 3)\n    # 4: (1, 4)\n    # 5: (2, 5)\n    #\n    # Sorted by (bit_count, decimal_value):\n    # 1: (1, 1)\n    # 2: (1, 2)\n    # 4: (1, 4)\n    # 3: (2, 3)\n    # 5: (2, 5)\n    #\n    # Result: [1, 2, 4, 3, 5]\n    # This also contradicts `[1, 5, 2, 3, 4] == [1, 2, 3, 4, 5]`.\n    #\n    # The examples provided `[1, 5, 2, 3, 4] == [1, 2, 3, 4, 5]` and `[1, 0, 2, 3, 4] == [0, 1, 2, 3, 4]`\n    # simply show a numerical sort. This means the problem description is completely at odds with the examples.\n    #\n    # Given the \"It must be implemented like this:\" and the examples, the examples take precedence.\n    # The examples show a simple numerical sort for both positive and negative numbers.\n    #\n    # Therefore, the most straightforward interpretation that satisfies ALL examples is a simple numerical sort.\n    # The description about \"number of ones in their binary representation\" seems to be a red herring\n    # or a misstatement given the provided examples.\n\n    return sorted(arr)",
+              "exit_code": 1,
+              "stdout_tail": "",
+              "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\ALEXAN~1\\AppData\\Local\\Temp\\passk_combo_1741jv6_\\run_tests.py\", line 16, in <module>\n    globals_ns[\"check\"](candidate)\n  File \"<string>\", line 5, in check\nAssertionError",
+              "elapsed": 0.2074587345123291
+            },
+            {
+              "label": "fix01",
+              "code": "def sort_array(arr):\n    \"\"\"\n    Given an array of non-negative integers, sort them according to\n    number of ones in their binary representation in ascending order.\n    For similar number of ones, sort based on decimal value.\n    It must be implemented like this:\n    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]\n    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]\n    >>> sort_array([1, 0, 2, 3, 4]) == [0, 1, 2, 3, 4]\n    \"\"\"\n    if not arr:\n        return []\n\n    # The problem description and examples are contradictory.\n    # The description says \"non-negative integers\" but one example uses negative integers.\n    # The example `sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]`\n    # suggests a simple numerical sort for all-negative arrays.\n    # The other examples `sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]` and\n    # `sort_array([1, 0, 2, 3, 4]) == [0, 1, 2, 3, 4]`\n    # suggest a simple numerical sort for all-non-negative arrays as well,\n    # because the number of ones for 1,2,3,4,5 are:\n    # 1 (01) -> 1 one\n    # 2 (10) -> 1 one\n    # 3 (11) -> 2 ones\n    # 4 (100) -> 1 one\n    # 5 (101) -> 2 ones\n    # If sorted by ones, then by value, it would be [1, 2, 4, 3, 5] or [1, 2, 4, 5, 3] depending on tie-breaking.\n    # The expected output [1, 2, 3, 4, 5] is just a simple numerical sort.\n\n    # Given the examples, it seems the intent is a simple numerical sort,\n    # or the examples are too simple to demonstrate the \"number of ones\" sorting.\n    # However, the problem description explicitly states \"sort them according to\n    # number of ones in their binary representation in ascending order.\n    # For similar number of ones, sort based on decimal value.\"\n\n    # Let's assume the description is primary and the examples are either\n    # insufficient or misleading for the \"number of ones\" part.\n    # The negative number example is a special case.\n\n    if all(x < 0 for x in arr):\n        return sorted(arr)\n    \n    # For non-negative numbers, apply the custom sorting logic.\n    # This also handles mixed arrays if the problem implies only non-negative\n    # elements should be sorted by bit count, and negative elements are just numerically sorted.\n    # However, the problem states \"Given an array of non-negative integers\".\n    # The presence of the negative example makes it ambiguous.\n    # Let's stick to the most literal interpretation: if *all* are negative, sort numerically.\n    # Otherwise, if there are non-negative numbers, apply the bit count sort.\n    # This implies that if there's a mix (e.g., [-1, 0, 1]), the bit count sort should apply to 0 and 1.\n    # But the problem says \"array of non-negative integers\".\n    # The most robust interpretation that satisfies the negative example and the description for non-negatives:\n    # If all elements are negative, sort numerically.\n    # Otherwise, sort based on (number of ones, decimal value) for all elements.\n    # This means negative numbers would also be sorted by their bit count if they are mixed with non-negatives.\n    # For negative numbers, `bin(x)` gives `'-0b...'`. We need `bin(abs(x))` for bit count.\n    # Or, more simply, `x.bit_count()` for Python 3.10+ or `bin(x).count('1')` for positive `x`.\n    # For negative `x`, `bin(x)` gives two's complement representation for `x` if `x` is a small integer.\n    # E.g., `bin(-1)` is `'-0b1'`. `bin(-2)` is `'-0b10'`.\n    # The problem implies \"number of ones in their binary representation\" for the *absolute value* or magnitude\n    # when dealing with negative numbers, or it's simply not meant to apply to negative numbers.\n    # Given the \"non-negative integers\" in the description, the negative example is an outlier.\n\n    # Let's assume the \"non-negative integers\" in the description is the primary constraint\n    # and the negative example is a special case for *only* negative numbers.\n    # If the array contains *any* non-negative numbers, then the bit count sorting applies.\n    # This means the `all(x < 0 for x in arr)` check is correct for the special case.\n    # For all other cases (including mixed positive/negative, or all positive),\n    # we apply the bit count sort.\n\n    # For negative numbers, `bin(x)` gives `'-0b...'`. `x.bit_count()` works for positive integers.\n    # For negative integers, `(-x).bit_count()` would be the number of ones in the absolute value.\n    # Let's use `x.bit_count()` for Python 3.10+. If not available, `bin(x).count('1')` for positive.\n    # For negative numbers, `bin(x)` gives `'-0b101'` for `-5`. `count('1')` would be 2.\n    # This seems to be the most straightforward interpretation.\n\n    def count_set_bits(n):\n        if n >= 0:\n            return n.bit_count() # Python 3.10+\n            # return bin(n).count('1') # For older Python versions\n        else:\n            # For negative numbers, the problem is ambiguous.\n            # If it means the number of ones in the two's complement representation,\n            # it depends on the bit width.\n            # If it means the number of ones in the absolute value, then:\n            return abs(n).bit_count()\n            # return bin(abs(n)).count('1')\n\n    # The examples for non-negative numbers ([1, 5, 2, 3, 4] -> [1, 2, 3, 4, 5])\n    # are still problematic if we strictly follow \"number of ones\".\n    # 1 (01) -> 1 one\n    # 2 (10) -> 1 one\n    # 3 (11) -> 2 ones\n    # 4 (100) -> 1 one\n    # 5 (101) -> 2 ones\n    # Sorted by (bit_count, value):\n    # (1, 1), (1, 2), (1, 4), (2, 3), (2, 5)\n    # Result: [1, 2, 4, 3, 5]\n    # This does NOT match the example `[1, 2, 3, 4, 5]`.\n\n    # This implies that for non-negative numbers, the sorting is *just* numerical,\n    # and the \"number of ones\" rule is either misstated or applies to a different set of inputs.\n    # Given the provided examples, the simplest solution that passes them is:\n    # if all negative, sort numerically.\n    # otherwise, sort numerically.\n\n    # This contradicts the description \"sort them according to number of ones\".\n    # The only way to reconcile the description with the examples is if the examples\n    # happen to have the same order when sorted by bit count and then by value, as when sorted numerically.\n    # Let's check:\n    # [1, 5, 2, 3, 4]\n    # (1,1), (5,2), (2,1), (3,2), (4,1)  <- (value, bit_count)\n    # Sorted by (bit_count, value):\n    # (1,1), (2,1), (4,1), (3,2), (5,2)\n    # Result: [1",
+              "exit_code": 1,
+              "stdout_tail": "",
+              "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\ALEXAN~1\\AppData\\Local\\Temp\\passk_combo_xi2e2qpe\\run_tests.py\", line 16, in <module>\n    globals_ns[\"check\"](candidate)\n  File \"<string>\", line 5, in check\nAssertionError",
+              "elapsed": 0.20264363288879395
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/117",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def select_words(s, n):\n    if not s:\n        return []\n\n    vowels = \"aeiouAEIOU\"\n    words = s.split()\n    result = []\n\n    for word in words:\n        consonant_count = 0\n        for char in word:\n            if char.isalpha() and char not in vowels:\n                consonant_count += 1\n        if consonant_count == n:\n            result.append(word)\n\n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.18987369537353516
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/118",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def get_closest_vowel(word):\n    vowels = \"aeiouAEIOU\"\n    consonants = \"bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ\"\n    \n    # Iterate from right to left, excluding the first and last characters\n    for i in range(len(word) - 2, 0, -1):\n        char = word[i]\n        \n        # Check if the current character is a vowel\n        if char in vowels:\n            # Check if it's surrounded by consonants\n            if word[i-1] in consonants and word[i+1] in consonants:\n                return char\n                \n    return \"\"",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.1742229461669922
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/119",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def match_parens(lst):\n    def is_balanced(s):\n        count = 0\n        for char in s:\n            if char == '(':\n                count += 1\n            else:\n                count -= 1\n            if count < 0:\n                return False\n        return count == 0\n\n    s1 = lst[0]\n    s2 = lst[1]\n\n    if is_balanced(s1 + s2) or is_balanced(s2 + s1):\n        return 'Yes'\n    else:\n        return 'No'",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.1735696792602539
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/12",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "from typing import List, Optional\n\n\ndef longest(strings: List[str]) -> Optional[str]:\n    \"\"\" Out of list of strings, return the longest one. Return the first one in case of multiple\n    strings of the same length. Return None in case the input list is empty.\n    >>> longest([])\n\n    >>> longest(['a', 'b', 'c'])\n    'a'\n    >>> longest(['a', 'bb', 'ccc'])\n    'ccc'\n    \"\"\"\n    if not strings:\n        return None\n    \n    longest_string = strings[0]\n    for s in strings:\n        if len(s) > len(longest_string):\n            longest_string = s\n            \n    return longest_string",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.22112321853637695
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/120",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "import heapq\n\ndef maximum(arr, k):\n    if k == 0:\n        return []\n    \n    # Use a min-heap to keep track of the k largest elements.\n    # The smallest element among the k largest will be at the root.\n    min_heap = []\n\n    for num in arr:\n        if len(min_heap) < k:\n            heapq.heappush(min_heap, num)\n        else:\n            # If the current number is greater than the smallest among the k largest,\n            # remove the smallest and add the current number.\n            if num > min_heap[0]:\n                heapq.heapreplace(min_heap, num)\n    \n    # The min_heap now contains the k largest elements.\n    # Sort them to get the final result.\n    min_heap.sort()\n    return min_heap",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19193291664123535
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/121",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def solution(lst):\n    total_sum = 0\n    for i in range(len(lst)):\n        if i % 2 == 0:  # Check if the position (index) is even\n            if lst[i] % 2 != 0:  # Check if the element at this even position is odd\n                total_sum += lst[i]\n    return total_sum",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.2481391429901123
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/122",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def add_elements(arr, k):\n    \"\"\"\n    Given a non-empty array of integers arr and an integer k, return\n    the sum of the elements with at most two digits from the first k elements of arr.\n\n    Example:\n\n        Input: arr = [111,21,3,4000,5,6,7,8,9], k = 4\n        Output: 24 # sum of 21 + 3\n\n    Constraints:\n        1. 1 <= len(arr) <= 100\n        2. 1 <= k <= len(arr)\n    \"\"\"\n    total_sum = 0\n    for i in range(min(k, len(arr))):  # Ensure we don't go out of bounds if k is larger than arr length\n        element = arr[i]\n        # Check if the element has at most two digits\n        # This means the absolute value of the number is less than 100\n        # For example, -99, -1, 0, 1, 99 are all at most two digits.\n        if -99 <= element <= 99:\n            total_sum += element\n    return total_sum",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.21739697456359863
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/123",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def get_odd_collatz(n):\n    \"\"\"\n    Given a positive integer n, return a sorted list that has the odd numbers in collatz sequence.\n\n    The Collatz conjecture is a conjecture in mathematics that concerns a sequence defined\n    as follows: start with any positive integer n. Then each term is obtained from the \n    previous term as follows: if the previous term is even, the next term is one half of \n    the previous term. If the previous term is odd, the next term is 3 times the previous\n    term plus 1. The conjecture is that no matter what value of n, the sequence will always reach 1.\n\n    Note: \n        1. Collatz(1) is [1].\n        2. returned list sorted in increasing order.\n\n    For example:\n    get_odd_collatz(5) returns [1, 5] # The collatz sequence for 5 is [5, 16, 8, 4, 2, 1], so the odd numbers are only 1, and 5.\n    \"\"\"\n    if n <= 0:\n        raise ValueError(\"Input must be a positive integer.\")\n\n    odd_numbers = set()\n    current_n = n\n\n    while current_n != 1:\n        if current_n % 2 != 0:  # If current_n is odd\n            odd_numbers.add(current_n)\n            current_n = 3 * current_n + 1\n        else:  # If current_n is even\n            current_n = current_n // 2\n    \n    odd_numbers.add(1) # 1 is always part of the sequence and is odd\n\n    return sorted(list(odd_numbers))",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.21471834182739258
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/124",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def valid_date(date):\n    \"\"\"You have to write a function which validates a given date string and\n    returns True if the date is valid otherwise False.\n    The date is valid if all of the following rules are satisfied:\n    1. The date string is not empty.\n    2. The number of days is not less than 1 or higher than 31 days for months 1,3,5,7,8,10,12. And the number of days is not less than 1 or higher than 30 days for months 4,6,9,11. And, the number of days is not less than 1 or higher than 29 for the month 2.\n    3. The months should not be less than 1 or higher than 12.\n    4. The date should be in the format: mm-dd-yyyy\n\n    for example: \n    valid_date('03-11-2000') => True\n\n    valid_date('15-01-2012') => False\n\n    valid_date('04-0-2040') => False\n\n    valid_date('06-04-2020') => True\n\n    valid_date('06/04/2020') => False\n    \"\"\"\n    if not date:\n        return False\n\n    parts = date.split('-')\n    if len(parts) != 3:\n        return False\n\n    try:\n        month = int(parts[0])\n        day = int(parts[1])\n        year = int(parts[2])\n    except ValueError:\n        return False\n\n    # Rule 3: The months should not be less than 1 or higher than 12.\n    if not (1 <= month <= 12):\n        return False\n\n    # Rule 2: Validate days based on month\n    if month in [1, 3, 5, 7, 8, 10, 12]:\n        if not (1 <= day <= 31):\n            return False\n    elif month in [4, 6, 9, 11]:\n        if not (1 <= day <= 30):\n            return False\n    elif month == 2:\n        # For simplicity, the problem statement says \"not higher than 29 for the month 2\".\n        # It doesn't explicitly mention leap years, so we stick to the stated rule.\n        if not (1 <= day <= 29):\n            return False\n    else:\n        # This case should ideally not be reached if month validation (Rule 3) is correct,\n        # but as a safeguard.\n        return False\n\n    return True",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.2018449306488037
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/125",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def split_words(txt):\n    if ' ' in txt:\n        return txt.split(' ')\n    elif ',' in txt:\n        return txt.split(',')\n    else:\n        count = 0\n        for char in txt:\n            if 'a' <= char <= 'z':\n                order = ord(char) - ord('a')\n                if order % 2 != 0:\n                    count += 1\n        return count",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.23363566398620605
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/126",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def is_sorted(lst):\n    if not lst:\n        return True\n\n    counts = {}\n    for x in lst:\n        counts[x] = counts.get(x, 0) + 1\n        if counts[x] > 2:\n            return False\n\n    for i in range(len(lst) - 1):\n        if lst[i] > lst[i+1]:\n            return False\n\n    return True",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.1875162124633789
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/127",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def intersection(interval1, interval2):\n    \"\"\"You are given two intervals,\n    where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).\n    The given intervals are closed which means that the interval (start, end)\n    includes both start and end.\n    For each given interval, it is assumed that its start is less or equal its end.\n    Your task is to determine whether the length of intersection of these two \n    intervals is a prime number.\n    Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)\n    which its length is 1, which not a prime number.\n    If the length of the intersection is a prime number, return \"YES\",\n    otherwise, return \"NO\".\n    If the two intervals don't intersect, return \"NO\".\n\n\n    [input/output] samples:\n    intersection((1, 2), (2, 3)) ==> \"NO\"\n    intersection((-1, 1), (0, 4)) ==> \"NO\"\n    intersection((-3, -1), (-5, 5)) ==> \"YES\"\n    \"\"\"\n    start1, end1 = interval1\n    start2, end2 = interval2\n\n    # Calculate the intersection interval\n    intersection_start = max(start1, start2)\n    intersection_end = min(end1, end2)\n\n    # If intervals don't intersect, or intersection is a single point (length 0)\n    if intersection_start > intersection_end:\n        return \"NO\"\n\n    # Calculate the length of the intersection\n    # For closed intervals (start, end), length is end - start + 1\n    # However, the problem examples imply length is end - start.\n    # Example: (2,3) length is 1. If it was end-start+1, it would be 3-2+1=2.\n    # Let's follow the example: length = intersection_end - intersection_start\n    length = intersection_end - intersection_start\n\n    # If the length is 0, it's not prime\n    if length <= 1:\n        return \"NO\"\n\n    # Check if the length is a prime number\n    # A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.\n    for i in range(2, int(length**0.5) + 1):\n        if length % i == 0:\n            return \"NO\"\n    \n    return \"YES\"",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.21880269050598145
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/128",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def prod_signs(arr):\n    if not arr:\n        return None\n\n    product_of_signs = 1\n    sum_of_magnitudes = 0\n    has_zero = False\n\n    for x in arr:\n        if x == 0:\n            has_zero = True\n            break\n        elif x < 0:\n            product_of_signs *= -1\n        else:\n            product_of_signs *= 1\n        sum_of_magnitudes += abs(x)\n\n    if has_zero:\n        return 0\n    else:\n        return sum_of_magnitudes * product_of_signs",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.20229411125183105
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/129",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "import heapq\n\ndef minPath(grid, k):\n    n = len(grid)\n    \n    # Store (value, row, col) for each cell to easily find starting points\n    cell_info = []\n    for r in range(n):\n        for c in range(n):\n            cell_info.append((grid[r][c], r, c))\n    \n    # Sort by value to prioritize smaller starting values\n    cell_info.sort()\n\n    # Priority queue to store (current_path_tuple, current_row, current_col, path_length)\n    # The path_tuple is used for lexicographical comparison.\n    # We use a tuple of values for the path, not a list, because tuples are hashable and comparable.\n    pq = []\n\n    # Initialize PQ with all possible starting cells\n    for val, r, c in cell_info:\n        if k == 1:\n            return [val] # Special case for k=1, just return the smallest value\n        heapq.heappush(pq, ((val,), r, c, 1)) # path_tuple, row, col, current_length\n\n    min_path_found = None\n\n    while pq:\n        current_path_tuple, r, c, length = heapq.heappop(pq)\n\n        if length == k:\n            # If we found a path of length k, it's a candidate.\n            # Since heapq pops the lexicographically smallest first,\n            # the first path of length k we extract is the answer.\n            return list(current_path_tuple)\n\n        # Explore neighbors\n        for dr, dc in [(0, 1), (0, -1), (1, 0), (-1, 0)]:\n            nr, nc = r + dr, c + dc\n\n            if 0 <= nr < n and 0 <= nc < n:\n                next_val = grid[nr][nc]\n                new_path_tuple = current_path_tuple + (next_val,)\n                heapq.heappush(pq, (new_path_tuple, nr, nc, length + 1))\n\n    return [] # Should not be reached based on problem constraints (answer is unique)",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.2151174545288086
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/13",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def greatest_common_divisor(a: int, b: int) -> int:\n    \"\"\" Return a greatest common divisor of two integers a and b\n    >>> greatest_common_divisor(3, 5)\n    1\n    >>> greatest_common_divisor(25, 15)\n    5\n    \"\"\"\n    while b:\n        a, b = b, a % b\n    return a",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.1993086338043213
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/130",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def tri(n):\n    \"\"\"Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in \n    the last couple centuries. However, what people don't know is Tribonacci sequence.\n    Tribonacci sequence is defined by the recurrence:\n    tri(1) = 3\n    tri(n) = 1 + n / 2, if n is even.\n    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.\n    For example:\n    tri(2) = 1 + (2 / 2) = 2\n    tri(4) = 3\n    tri(3) = tri(2) + tri(1) + tri(4)\n           = 2 + 3 + 3 = 8 \n    You are given a non-negative integer number n, you have to a return a list of the \n    first n + 1 numbers of the Tribonacci sequence.\n    Examples:\n    tri(3) = [1, 3, 2, 8]\n    \"\"\"\n    if n < 0:\n        return []\n    if n == 0:\n        return [1]\n\n    # The problem statement implies tri(0) = 1 from the example tri(3) = [1, 3, 2, 8]\n    # where the list has 4 elements, indexed 0 to 3.\n    # So, tri_sequence[0] = 1.\n\n    # We need to calculate up to tri(n). The list will have n+1 elements.\n    # Let's use a list to store the sequence values.\n    # We need to handle the recursive definition carefully, especially for odd n.\n    # tri(n) = tri(n-1) + tri(n-2) + tri(n+1) for odd n.\n    # This means to calculate tri(n) for odd n, we need tri(n+1).\n    # This suggests we might need to calculate in a different order or use a system of equations.\n\n    # Let's re-examine the example:\n    # tri(1) = 3 (given)\n    # tri(2) = 1 + (2 / 2) = 2 (given)\n    # tri(4) = 3 (given)\n    # tri(3) = tri(2) + tri(1) + tri(4) = 2 + 3 + 3 = 8 (given)\n\n    # The example tri(3) = [1, 3, 2, 8] implies:\n    # tri_sequence[0] = 1\n    # tri_sequence[1] = 3\n    # tri_sequence[2] = 2\n    # tri_sequence[3] = 8\n\n    # Let's try to build the sequence iteratively.\n    # We need to calculate tri(i) for i from 0 to n.\n    # The definition for odd n is problematic: tri(n) = tri(n-1) + tri(n-2) + tri(n+1)\n    # This means to get tri(n), we need tri(n+1).\n    # This is a forward-looking dependency.\n\n    # Let's consider the definition for odd n:\n    # tri(n) - tri(n+1) = tri(n-1) + tri(n-2)\n    # This doesn't seem to simplify things much.\n\n    # What if we calculate from n downwards? No, we need tri(n-1) and tri(n-2).\n\n    # Let's assume tri_sequence[0] = 1 based on the example.\n    # Then we can calculate tri_sequence[1], tri_sequence[2], etc.\n\n    # For i = 0: tri_sequence[0] = 1 (implied by example)\n    # For i = 1: tri_sequence[1] = 3 (given)\n    # For i = 2: tri_sequence[2] = 1 + (2 / 2) = 2 (given, n is even)\n    # For i = 3: tri_sequence[3] = tri_sequence[2] + tri_sequence[1] + tri_sequence[4]\n    # Here's the problem: to calculate tri_sequence[3], we need tri_sequence[4].\n\n    # This implies that the problem statement is designed to be solved by working backwards\n    # or by solving a system of equations.\n    # However, the problem asks for \"a list of the first n + 1 numbers\".\n    # This usually means calculating tri(0), tri(1), ..., tri(n).\n\n    # Let's look at the example again: tri(3) = [1, 3, 2, 8]\n    # This means tri(0)=1, tri(1)=3, tri(2)=2, tri(3)=8.\n    # To get tri(3)=8, we used tri(2), tri(1), and tri(4).\n    # This means tri(4) must have been known or calculable.\n    # tri(4) = 1 + (4 / 2) = 3 (since 4 is even). This matches the example.\n\n    # So, to calculate tri(k) for an odd k, we need tri(k+1).\n    # If k+1 is even, tri(k+1) = 1 + (k+1)/2. This is directly calculable.\n    # So, for an odd k, tri(k) = tri(k-1) + tri(k-2) + (1 + (k+1)/2).\n\n    # Let's re-evaluate the sequence generation with this understanding.\n    # We need a list of size n+1.\n    result = [0] * (n + 1)\n\n    # Base case (implied by example)\n    result[0] = 1\n\n    if n >= 1:\n        result[1] = 3\n\n    # Now iterate from i = 2 up to n\n    for i in range(2, n + 1):\n        if i % 2 == 0:  # i is even\n            result[i] = 1 + i // 2\n        else:  # i is odd\n            # To calculate result[i], we need result[i-1], result[i-2], and result[i+1].\n            # result[i-1] and result[i-2] are already computed.\n            # For result[i+1]:\n            # If i+1 is even, then result[i+1] = 1 + (i+1) // 2.\n            # This is always true because if i is odd, i+1 is even.\n            tri_i_plus_1 = 1 + (i + 1) // 2\n            result[i] = result[i - 1] + result[i - 2] + tri_i_plus_1\n\n    return result",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.20282578468322754
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/131",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def digits(n):\n    product = 1\n    has_odd = False\n    s_n = str(n)\n    for char_digit in s_n:\n        digit = int(char_digit)\n        if digit % 2 != 0:\n            product *= digit\n            has_odd = True\n    \n    if not has_odd:\n        return 0\n    else:\n        return product",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19035625457763672
+            }
+          ]
+        },
+        {
+          "name": "HumanEval/132",
+          "passed": false,
+          "attempts_used": 2,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def is_nested(string):\n    stack = []\n    max_depth = 0\n    current_depth = 0\n\n    for char in string:\n        if char == '[':\n            stack.append(char)\n            current_depth += 1\n            max_depth = max(max_depth, current_depth)\n        elif char == ']':\n            if stack and stack[-1] == '[':\n                stack.pop()\n                current_depth -= 1\n            else:\n                # Mismatched closing bracket, reset depth as it's not a valid nesting path\n                # for the current sequence. We still want to track max_depth from valid parts.\n                current_depth = 0 \n                stack = [] # Clear stack to start fresh for potential new valid sequences\n    \n    return max_depth >= 2",
+              "exit_code": 1,
+              "stdout_tail": "",
+              "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\ALEXAN~1\\AppData\\Local\\Temp\\passk_combo_nzr4r11t\\run_tests.py\", line 16, in <module>\n    globals_ns[\"check\"](candidate)\n  File \"<string>\", line 5, in check\nAssertionError",
+              "elapsed": 0.19620990753173828
+            },
+            {
+              "label": "fix01",
+              "code": "def is_nested(string):\n    stack = []\n    max_depth = 0\n    current_depth = 0\n    for char in string:\n        if char == '[':\n            stack.append(char)\n            current_depth += 1\n            max_depth = max(max_depth, current_depth)\n        elif char == ']':\n            if stack and stack[-1] == '[':\n                stack.pop()\n                current_depth -= 1\n            else:\n                # If a closing bracket appears without a matching opening bracket,\n                # or if the stack is empty, it's an invalid nesting sequence\n                # for the purpose of determining if it's \"nested\" in the sense\n                # of having at least two levels of *valid* nesting.\n                # Resetting current_depth and stack here effectively means\n                # any subsequent valid nesting won't count towards the depth\n                # of the *current* invalid sequence.\n                # However, the problem definition implies we are looking for\n                # *any* valid nesting of depth 2 or more.\n                # The original code's logic for `else` on ']' was problematic.\n                # If we encounter ']' and stack is empty or top is not '[',\n                # it means this ']' is unmatched. This should invalidate the\n                # current nesting sequence for depth calculation.\n                # The problem is subtle: \"is_nested\" implies a well-formed\n                # structure to some extent. If it's just about max depth\n                # regardless of validity, then `[[[]]]` and `[[[]` would both\n                # yield max_depth 3. But `][` would yield max_depth 0.\n                # The original code's `current_depth = 0; stack = []` on an\n                # unmatched ']' seems to be an attempt to handle invalidity.\n                # Let's re-evaluate the definition of \"nested\".\n                # If it means \"contains a substring that is well-nested to depth 2+\",\n                # then the current logic is almost right.\n                # If it means \"the entire string is well-nested to depth 2+\",\n                # then we need to check `not stack` at the end.\n\n                # The original test case `[[[]]]` passes, `[]` fails.\n                # `[[` passes, `][` fails.\n                # This suggests it's about finding *any* sequence that reaches\n                # a depth of 2 or more, and that unmatched closing brackets\n                # should reset the current depth count for *that* sequence.\n                # The original `current_depth = 0` and `stack = []` on an\n                # unmatched ']' is actually a reasonable way to handle this\n                # for the given problem's apparent intent.\n                # The issue might be in the final return condition.\n\n                # Let's trace `[[[]]]`\n                # [ : stack=['['], cd=1, md=1\n                # [ : stack=['[','['], cd=2, md=2\n                # [ : stack=['[','[','['], cd=3, md=3\n                # ] : stack=['[','['], cd=2, md=3\n                # ] : stack=['['], cd=1, md=3\n                # ] : stack=[], cd=0, md=3\n                # return 3 >= 2 -> True. Correct.\n\n                # Let's trace `[[`\n                # [ : stack=['['], cd=1, md=1\n                # [ : stack=['[','['], cd=2, md=2\n                # return 2 >= 2 -> True. Correct.\n\n                # Let's trace `[]`\n                # [ : stack=['['], cd=1, md=1\n                # ] : stack=[], cd=0, md=1\n                # return 1 >= 2 -> False. Correct.\n\n                # Let's trace `][`\n                # ] : stack=[], else branch: cd=0, stack=[] (no change), md=0\n                # [ : stack=['['], cd=1, md=1\n                # return 1 >= 2 -> False. Correct.\n\n                # The problem description is \"Fix the module to pass tests.\"\n                # The current code seems to correctly calculate max_depth based\n                # on the given logic. The `AssertionError` suggests a test case\n                # where `max_depth >= 2` is not the correct final condition.\n\n                # What if the problem implies that the *entire* string must be\n                # well-formed to be considered \"nested\"?\n                # E.g., `[[[]]]` is nested. `[[[]` is not (unmatched '[').\n                # `[[[]]]]` is not (unmatched ']').\n                # If this is the case, we need to check `not stack` at the end.\n\n                # Let's test this hypothesis:\n                # `[[[]]]` -> md=3, stack=[] -> True.\n                # `[[[]` -> md=3, stack=['[','[','['] -> False (if `not stack` is added).\n                # `[[[]]]]` -> md=3, stack=[] (after last ']') -> True (if `not stack` is added, but this is wrong).\n                # The `else` branch for `char == ']'` needs to be careful.\n                # If `stack` is empty or `stack[-1]` is not `[`, it means an unmatched closing bracket.\n                # This should invalidate the *entire* sequence for being \"nested\" in a well-formed sense.\n                # The original code's `current_depth = 0; stack = []` on an unmatched ']'\n                # effectively resets the counter for *subsequent* valid nesting, but it doesn't\n                # invalidate the *overall* result if `max_depth` was already reached.\n\n                # Let's consider the definition of \"nested\".\n                # \"A string is nested if it contains at least two levels of brackets.\"\n                # This usually implies well-formedness.\n                # Example: `[[[]]]` -> True (depth 3)\n                # Example: `[]` -> False (depth 1)\n                # Example: `[[` -> True (depth 2, even if not closed)\n                # Example: `][` -> False (max depth 1, not well-formed)\n                # Example: `[[]]` -> True (depth 2)\n\n                # The current code's behavior for `[[` is `max_depth = 2`, `return True`. This seems correct.\n                # The current code's behavior for `][` is `max_depth = 1`, `return False`. This seems correct.\n\n                # The only way the current code could fail is if `max_depth >= 2` is not the only condition.\n                # What if the string must be *perfectly balanced* AND have depth >= 2?\n                # E.g., `[[[]]]` -> True\n                # `[[[]` -> False (unbalanced)\n                # `[[[]]]]` -> False (unbalanced)\n\n                # If this is the case, we need to add `and not stack` to the return.\n                # Let's test this:\n                # `[[[]]]` -> md=3, stack=[] -> True and True -> True. Correct.\n                # `[[[]` -> md=3, stack=['[','[','['] -> True and False -> False. Correct.\n                # `[[[]]]]` -> md=3, stack=[] (after last ']') -> True and True -> True. This is WRONG.\n                # The `else` branch for `]` needs to mark the sequence as invalid if an unmatched `]` is found.\n\n                # Let's refine the `else` for `char == ']':`\n                # If `stack` is empty or `stack[-1]` is not `[`, it means we have an unmatched closing bracket.\n                # In this case, the entire string cannot be considered \"nested\" in a well-formed sense.\n                # We should probably set `max_depth` to 0 or a flag to indicate invalidity.\n                # Or, more simply, if we encounter an unmatched `]`, the `current_depth` should not just reset,\n                # but the `max_depth` should also be considered invalid for the purpose of the final check.\n\n                # Let's try a different approach for the `else` branch of `char == ']':`\n                # If an unmatched `]` is found, it means the structure is invalid.\n                # We can set `max_depth` to 0 and break, or return False immediately if we want strict well-formedness.\n                # But the problem implies finding *any* nested structure.\n\n                # The original code's `current_depth = 0; stack = []` for an unmatched",
+              "exit_code": 1,
+              "stdout_tail": "",
+              "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\ALEXAN~1\\AppData\\Local\\Temp\\passk_combo_1_zaedfp\\run_tests.py\", line 5, in <module>\n    spec.loader.exec_module(solution)\n  File \"<frozen importlib._bootstrap_external>\", line 936, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1074, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1004, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 241, in _call_with_frames_removed\n  File \"C:\\Users\\ALEXAN~1\\AppData\\Local\\Temp\\passk_combo_1_zaedfp\\solution.py\", line 133\n    # The original code's `current_depth = 0; stack = []` for an unmatched\n                                                                          ^\nIndentationError: expected an indented block after 'else' statement on line 14",
+              "elapsed": 0.22150635719299316
             }
           ]
         }
       ],
-      "failures": 0,
-      "passes": 1,
-      "tasks_evaluated": 1,
-      "stopped_after_failures": false,
-      "stop_after_failures": 1,
-      "pass_at_k": 1.0,
-      "save_dir": "C:\\Users\\Alexander_Bennett\\OneDrive - UMass Lowell\\Desktop\\llm-eval\\generated_solutions\\openai"
+      "failures": 2,
+      "passes": 37,
+      "tasks_evaluated": 39,
+      "stopped_after_failures": true,
+      "stop_after_failures": 2,
+      "pass_at_k": 0.9487179487179487,
+      "save_dir": "C:\\Users\\Alexander_Bennett\\OneDrive - UMass Lowell\\Desktop\\llm-eval\\generated_solutions\\gemini"
     }
   ]
 }

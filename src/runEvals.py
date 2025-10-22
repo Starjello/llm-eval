@@ -58,8 +58,8 @@ def base_system_hint() -> str:
         "Return ONLY valid Python 3 code for a single module. "
         "No markdown, no comments, no extra text. "
         "Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure success"
-        "After reading the question, internally try to understand it. Now try rereading the question but be critical of your understanding of the problem. Keep doing this until you are sure you understand the task"
-        "Hint the answer is: odd = 0 even = 0 for i in lst1: if i%2 == 1: odd += 1 for i in lst2: if i%2 == 0: even += 1 if even >= odd: return YES return NO"
+        "Before writing, silently paraphrase what the question is asking so that you understand it to the best of your ability, come up with the most basic of test cases and make sure your solution at least fulfills that one"
+        ""
 
     )
 
@@ -743,7 +743,7 @@ def main():
     parser = argparse.ArgumentParser(description="HumanEval evaluator for OpenAI/Gemini with failure-capped runs.")
     parser.add_argument("--stop-after-failures", type=int, default=2,
                         help="Stop each provider after this many failed tasks (default: 2).")
-    parser.add_argument("--max-tasks", type=int, default=30,
+    parser.add_argument("--max-tasks", type=int, default=50,
                         help="Max number of HumanEval tasks to load (default: 10).")
     parser.add_argument("--gemini-model", type=str, default=GEMINI_MODEL,
                         help="Gemini model to use (e.g., gemini-2.5-pro or gemini-2.5-flash).")

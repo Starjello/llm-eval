@@ -1,0 +1,40 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure successBefore writing, silently paraphrase what the question is asking so that you understand it to the best of your ability, come up with the most basic of test cases and make sure your solution at least fulfills that one
+
+=== ORIGINAL_HUMANEVAL_PROMPT ===
+
+def match_parens(lst):
+    '''
+    You are given a list of two strings, both strings consist of open
+    parentheses '(' or close parentheses ')' only.
+    Your job is to check if it is possible to concatenate the two strings in
+    some order, that the resulting string will be good.
+    A string S is considered to be good if and only if all parentheses in S
+    are balanced. For example: the string '(())()' is good, while the string
+    '())' is not.
+    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
+
+    Examples:
+    match_parens(['()(', ')']) == 'Yes'
+    match_parens([')', ')']) == 'No'
+    '''
+
+
+=== USER ===
+
+def match_parens(lst):
+    '''
+    You are given a list of two strings, both strings consist of open
+    parentheses '(' or close parentheses ')' only.
+    Your job is to check if it is possible to concatenate the two strings in
+    some order, that the resulting string will be good.
+    A string S is considered to be good if and only if all parentheses in S
+    are balanced. For example: the string '(())()' is good, while the string
+    '())' is not.
+    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
+
+    Examples:
+    match_parens(['()(', ')']) == 'Yes'
+    match_parens([')', ')']) == 'No'
+    '''
+

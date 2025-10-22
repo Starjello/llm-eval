@@ -1,0 +1,31 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure successBefore writing, silently paraphrase what the question is asking so that you understand it to the best of your ability, come up with the most basic of test cases and make sure your solution at least fulfills that one
+
+=== USER (REPAIR) ===
+Fix the module to pass tests.
+Return ONLY corrected Python code. No explanations or markdown.
+Keep the same function signatures.
+
+Error (trimmed):
+Traceback (most recent call last):
+  File "C:\Users\ALEXAN~1\AppData\Local\Temp\passk_combo_1741jv6_\run_tests.py", line 16, in <module>
+    globals_ns["check"](candidate)
+  File "<string>", line 5, in check
+AssertionError
+
+
+Current code (trimmed):
+n-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
+    It must be implemented like this:
+    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+    >>> sort_array([1, 0, 2, 3, 4]) == [0, 1, 2, 3, 4]
+    """
+    if not arr:
+        return []
+    if all(x < 0 for x in arr):
+        return sorted(arr)
+    return sorted(arr)
+

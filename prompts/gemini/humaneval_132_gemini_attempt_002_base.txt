@@ -1,0 +1,36 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure successBefore writing, silently paraphrase what the question is asking so that you understand it to the best of your ability, come up with the most basic of test cases and make sure your solution at least fulfills that one
+
+=== ORIGINAL_HUMANEVAL_PROMPT ===
+
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+
+
+=== USER ===
+
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+

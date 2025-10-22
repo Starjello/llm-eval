@@ -18,6 +18,7 @@ def separate_paren_groups(paren_string: str) -> List[str]:
             continue
         
         current_group.append(char)
+        
         if char == '(':
             balance += 1
         elif char == ')':

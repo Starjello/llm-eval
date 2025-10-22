@@ -1,0 +1,40 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure successBefore writing, silently paraphrase what the question is asking so that you understand it to the best of your ability, come up with the most basic of test cases and make sure your solution at least fulfills that one
+
+=== ORIGINAL_HUMANEVAL_PROMPT ===
+
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+
+
+=== USER ===
+
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+

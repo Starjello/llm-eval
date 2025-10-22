@@ -1,0 +1,35 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure successBefore writing, silently paraphrase what the question is asking so that you understand it to the best of your ability, come up with the most basic of test cases and make sure your solution at least fulfills that one
+
+=== USER (REPAIR) ===
+Fix the module to pass tests.
+Return ONLY corrected Python code. No explanations or markdown.
+Keep the same function signatures.
+
+Error (trimmed):
+Traceback (most recent call last):
+  File "C:\Users\ALEXAN~1\AppData\Local\Temp\passk_combo_nzr4r11t\run_tests.py", line 16, in <module>
+    globals_ns["check"](candidate)
+  File "<string>", line 5, in check
+AssertionError
+
+
+Current code (trimmed):
+def is_nested(string):
+    stack = []
+    max_depth = 0
+    current_depth = 0
+    for char in string:
+        if char == '[':
+            stack.append(char)
+            current_depth += 1
+            max_depth = max(max_depth, current_depth)
+        elif char == ']':
+            if stack and stack[-1] == '[':
+                stack.pop()
+                current_depth -= 1
+            else:
+                current_depth = 0
+                stack = []
+    return max_depth >= 2
+

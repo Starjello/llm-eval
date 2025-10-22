@@ -1,5 +1,5 @@
 === SYSTEM ===
-Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure success
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure successBefore writing, silently paraphrase what the question is asking so that you understand it to the best of your ability, come up with the most basic of test cases and make sure your solution at least fulfills that one
 
 === USER (REPAIR) ===
 Fix the module to pass tests.
@@ -8,7 +8,7 @@ Keep the same function signatures.
 
 Error (trimmed):
 Traceback (most recent call last):
-  File "C:\Users\ALEXAN~1\AppData\Local\Temp\passk_combo_g68q9z1j\run_tests.py", line 16, in <module>
+  File "C:\Users\ALEXAN~1\AppData\Local\Temp\passk_combo_bvy4a1gs\run_tests.py", line 16, in <module>
     globals_ns["check"](candidate)
   File "<string>", line 9, in check
 AssertionError
@@ -16,7 +16,7 @@ AssertionError
 
 Current code (trimmed):
 def count_nums(arr):
-    def sum_of_digits(n):
+    def digit_sum(n):
         return sum(int(d) if n >= 0 else -int(d) for d in str(abs(n)))
-    return sum(1 for num in arr if sum_of_digits(num) > 0)
+    return sum(1 for num in arr if digit_sum(num) > 0)
 
