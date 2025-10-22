@@ -1,0 +1,35 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. 
+
+=== USER (REPAIR) ===
+Fix the module to pass tests.
+Return ONLY corrected Python code. No explanations or markdown.
+Keep the same function signatures.
+
+Error (trimmed):
+Traceback (most recent call last):
+  File "C:\Users\ALEXAN~1\AppData\Local\Temp\passk_combo_6r9xorv3\run_tests.py", line 16, in <module>
+    globals_ns["check"](candidate)
+  File "<string>", line 9, in check
+AssertionError
+
+
+Current code (trimmed):
+o the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    if not string:
+        return ""
+    n = len(string)
+    for i in range(n, -1, -1):
+        suffix = string[i:]
+        if is_palindrome(suffix):
+            prefix_to_reverse = string[:i]
+            return string + prefix_to_reverse[::-1]
+    return string + string[::-1]
+

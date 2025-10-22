@@ -1,0 +1,26 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. 
+
+=== USER (REPAIR) ===
+Fix the module to pass tests.
+Return ONLY corrected Python code. No explanations or markdown.
+Keep the same function signatures.
+
+Error (trimmed):
+Traceback (most recent call last):
+  File "C:\Users\ALEXAN~1\AppData\Local\Temp\passk_combo_mf3rdxch\run_tests.py", line 16, in <module>
+    globals_ns["check"](candidate)
+  File "<string>", line 13, in check
+AssertionError: Error
+
+
+Current code (trimmed):
+import math
+def max_fill(grid, capacity):
+    total_water = 0
+    for row in grid:
+        total_water += sum(row)
+    if total_water == 0:
+        return 0
+    return math.ceil(total_water / capacity)
+

@@ -1,0 +1,22 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. Before submitting, internally come up with test cases ranging from easy to hard and check your function succeeded. Make changes to ensure successAfter reading the question, internally try to understand it. Now try rereading the question but be critical of your understanding of the problem. Keep doing this until you are sure you understand the taskHint: def exchange(lst1, lst2): odd_in_lst1 = any(x % 2 != 0 for x in lst1) even_in_lst2 = any(x % 2 == 0 for x in lst2) return YES if not odd_in_lst1 or even_in_lst2 else NO Is not the answer
+
+=== USER (REPAIR) ===
+Fix the module to pass tests.
+Return ONLY corrected Python code. No explanations or markdown.
+Keep the same function signatures.
+
+Error (trimmed):
+Traceback (most recent call last):
+  File "C:\Users\ALEXAN~1\AppData\Local\Temp\passk_combo_um6zwo05\run_tests.py", line 16, in <module>
+    globals_ns["check"](candidate)
+  File "<string>", line 5, in check
+AssertionError
+
+
+Current code (trimmed):
+def exchange(lst1, lst2):
+    has_odd_in_lst1 = any(x % 2 != 0 for x in lst1)
+    has_even_in_lst2 = any(x % 2 == 0 for x in lst2)
+    return "YES" if not has_odd_in_lst1 or has_even_in_lst2 else "NO"
+

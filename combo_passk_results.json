@@ -1,0 +1,35 @@
+{
+  "k": 2,
+  "debug_rounds": 1,
+  "base_save_dir": "C:\\Users\\Alexander_Bennett\\OneDrive - UMass Lowell\\Desktop\\llm-eval\\generated_solutions",
+  "runs": [
+    {
+      "provider": "openai",
+      "results": [
+        {
+          "name": "HumanEval/110",
+          "passed": true,
+          "attempts_used": 1,
+          "final_variant": 0,
+          "variants": [
+            {
+              "label": "base",
+              "code": "def exchange(lst1, lst2):\n    odd = sum(1 for i in lst1 if i % 2 == 1)\n    even = sum(1 for i in lst2 if i % 2 == 0)\n    if even >= odd:\n        return \"YES\"\n    return \"NO\"",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.19125080108642578
+            }
+          ]
+        }
+      ],
+      "failures": 0,
+      "passes": 1,
+      "tasks_evaluated": 1,
+      "stopped_after_failures": false,
+      "stop_after_failures": 1,
+      "pass_at_k": 1.0,
+      "save_dir": "C:\\Users\\Alexander_Bennett\\OneDrive - UMass Lowell\\Desktop\\llm-eval\\generated_solutions\\openai"
+    }
+  ]
+}

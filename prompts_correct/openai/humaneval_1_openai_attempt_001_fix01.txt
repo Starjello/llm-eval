@@ -1,0 +1,32 @@
+=== SYSTEM ===
+Think step-by-step internally. Do NOT reveal reasoning. Return ONLY valid Python 3 code for a single module. No markdown, no comments, no extra text. 
+
+=== USER (REPAIR) ===
+Fix the module to pass tests.
+Return ONLY corrected Python code. No explanations or markdown.
+Keep the same function signatures.
+
+Error (trimmed):
+emp\passk_combo_ag9z1mz0\solution.py", line 1, in <module>
+    def separate_paren_groups(paren_string: str) -> List[str]:
+                                                    ^^^^
+NameError: name 'List' is not defined. Did you mean: 'list'?
+
+
+Current code (trimmed):
+def separate_paren_groups(paren_string: str) -> List[str]:
+    paren_string = paren_string.replace(" ", "")
+    result = []
+    balance = 0
+    current_group = []
+    for char in paren_string:
+        current_group.append(char)
+        if char == '(':
+            balance += 1
+        elif char == ')':
+            balance -= 1
+        if balance == 0:
+            result.append(''.join(current_group))
+            current_group = []
+    return result
+

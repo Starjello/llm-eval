@@ -1,0 +1,33 @@
+{
+  "k": 3,
+  "openai_model": "gpt-4o-mini",
+  "gemini_model": "gemini-2.5-flash",
+  "temperature": 0.6,
+  "provider_last_run": "openai",
+  "results": [
+    {
+      "name": "add",
+      "passed": true,
+      "attempts": 1,
+      "first_pass_attempt": 1,
+      "attempt_summaries": [
+        {
+          "i": 1,
+          "variants": [
+            {
+              "fix_round": 0,
+              "code_path": "C:\\Users\\Alexander_Bennett\\OneDrive - UMass Lowell\\Desktop\\llm-eval\\generated_solutions\\add_attempt1.py",
+              "exit_code": 0,
+              "stdout_tail": "PASS: Tests finished without assertion errors.",
+              "stderr_tail": "",
+              "elapsed": 0.2961599826812744
+            }
+          ],
+          "passed": true,
+          "final_fix": 0
+        }
+      ]
+    }
+  ],
+  "pass_at_k": 1.0
+}
