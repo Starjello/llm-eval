@@ -7,3 +7,5 @@ To use the set command in terminal to set a value to the api keys
 Have installed google gemini and openai packages
 You may need to create the same folder structure I described earlier including a combo.passk_results.json file to catch the summary report but I am not entirely sure
 
+
+Packages needed: google-genai, openai, humaneval
